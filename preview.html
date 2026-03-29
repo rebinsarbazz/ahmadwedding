@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    background: #f8f5f2;
+}
+
+.first-view {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.shape {
+    position: absolute;
+    transition: all 1.5s ease;
+    max-width: 100%;
+    height: auto;
+}
+
+.left-shape { top: 0; left: 0; width: 50%; }
+.right-shape { top: 0; right: 0; width: 50%; }
+.top-shape { top: 0; left: 0; width: 100%; }
+.bottom-shape { bottom: 0; left: 0; width: 100%; }
+
+.center-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    text-align: center;
+    transition: 0.5s;
+}
+
+.center-btn img {
+    width: 120px;
+    max-width: 80vw;
+    transition: 0.5s;
+}
+
+.center-btn:hover img {
+    transform: scale(1.1);
+}
+
+.open .left-shape { transform: translateX(-100%); opacity: 0; }
+.open .right-shape { transform: translateX(100%); opacity: 0; }
+.open .top-shape { transform: translateY(-100%); opacity: 0; }
+.open .bottom-shape { transform: translateY(100%); opacity: 0; }
+.open .center-btn { opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(1.2); }
+
+.mirage-icon {
+    width: 130px;
+    max-width: 60vw;
+    margin: 25px 0;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 1.5s ease;
+    filter: drop-shadow(0 0 15px rgba(184,155,94,0.5));
+}
+
+.open .mirage-icon {
+    opacity: 1;
+    transform: scale(1);
+    animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-10px) scale(1); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+@keyframes glow {
+    0% { filter: drop-shadow(0 0 5px rgba(184,155,94,0.4)); }
+    50% { filter: drop-shadow(0 0 20px rgba(184,155,94,1)); }
+    100% { filter: drop-shadow(0 0 5px rgba(184,155,94,0.4)); }
+}
+
+.content {
+    position: absolute;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-image: url("https://optim.tildacdn.net/tild6537-6436-4433-b962-393536336630/-/format/webp/image_159.png.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 2s ease;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.content::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(4px);
+    z-index: 0;
+}
+
+.content * { position: relative; z-index: 1; }
+
+.open .content { opacity: 1; }
+
+@font-face {
+    font-family: 'MyFont';
+    src: url('myfont.woff') format('truetype');
+}
+.htitle {
+  margin-bottom:10px;
+  color:#b89b5e;
+  letter-spacing:3px;
+  font-family: 'MyFont', sans-serif;
+
+  ;
+}
+
+h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #b89b5e; margin: 10px 0; }
+h2 { font-weight: 300; letter-spacing: 5px; color: #777; text-transform: uppercase; margin: 0; }
+p { color: #444; font-size: 1.1rem; line-height: 1.6; }
+
+.content h1, .content h2, .content p { opacity: 0; transform: translateY(20px); transition: all 1s ease; }
+.open .content h2 { transition-delay: 0.5s; opacity:1; transform:translateY(0); }
+.open .content h1 { transition-delay: 1s; opacity:1; transform:translateY(0); }
+.open .content p:nth-of-type(1) { transition-delay: 1.5s; opacity:1; transform:translateY(0); }
+.open .content p:nth-of-type(2) { transition-delay: 1.8s; opacity:1; transform:translateY(0); }
+.open .content p:nth-of-type(3) { transition-delay: 2.1s; opacity:1; transform:translateY(0); }
+
+#countdown {
+    margin: 25px 0;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.countdown-item {
+    background: rgba(184,155,94,0.15);
+    padding: 10px 15px;
+    border-radius: 10px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.countdown-item span { display: block; font-weight: 600; font-size: 1.3rem; color: #b89b5e; }
+.countdown-item small { display: block; font-size: 0.7rem; color: #555; }
+
+.divider {
+    width: 60px;
+    height: 2px;
+    background: #b89b5e;
+    margin: 15px auto;
+}
+
+@media(max-width:600px){
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1rem; letter-spacing: 3px; }
+    .center-btn img { width: 80px; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="your-music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="first-view">
+    <img class="shape left-shape" src="https://static.tildacdn.net/tild6338-3733-4431-a363-306634383864/Polygon_4.png">
+    <img class="shape right-shape" src="https://static.tildacdn.net/tild3636-6566-4132-b665-343766326335/Polygon_3.png">
+    <img class="shape top-shape" src="https://static.tildacdn.net/tild3762-3738-4361-b134-333538333135/Polygon_1_3.png">
+    <img class="shape bottom-shape" src="https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png">
+
+    <div class="center-btn" onclick="openInvite()">
+        <h2 class="htitle">
+            بانگهێشتی هاوسەرگیری
+        </h2>
+
+        <img src="https://static.tildacdn.net/tild3435-3731-4464-a537-636664626563/ChatGPT_Image_Aug_3_.png">
+
+        <p style="font-family:'myfont'; font-size:12px; color:#888;">قَالَ رَسُولُ اللَّه ﷺ 
+يُسْتَجَابُ لِأَحَدِكُمْ مَا لَمْ يَعْجَلْ، فَيَقُولُ : قَدْ دَعَوْتُ رَبِّي فَلَمْ يَسْتَجِبْ لِي .
+واتە : 
+دوعای هەر یەکێک لە ئێوە وەڵام دەدرێتەوە مادام پەلە نەکات ،پەلەکردنیش ئەوەیە دەڵێت : دوعام کرد و پەروەردگارم وەڵامی نەدامەوە  .</p>
+    </div>
+</div>
+
+<div class="content">
+    <h2>With Love & Joy</h2>
+    <img src="png-Photoroom.png" class="mirage-icon">
+    <h1>Ahmed & Sara</h1>
+    <p>Together with their families,<br>request the honor of your presence at their wedding celebration</p>
+    <p><strong>June 15, 2026 • 7:00 PM</strong></p>
+    <p>Grand Palace Hall</p>
+    <p style="margin-top:10px; font-size:0.9rem;">Kindly RSVP by June 1</p>
+    <p>📍 <a href="#">View Location</a></p>
+
+    <div class="divider"></div>
+
+    <div id="countdown">
+        <div class="countdown-item"><span id="days">0</span><small>Days</small></div>
+        <div class="countdown-item"><span id="hours">0</span><small>Hours</small></div>
+        <div class="countdown-item"><span id="minutes">0</span><small>Minutes</small></div>
+        <div class="countdown-item"><span id="seconds">0</span><small>Seconds</small></div>
+    </div>
+</div>
+
+<script>
+function openInvite() {
+    document.body.classList.add("open");
+    const music = document.getElementById("bgMusic");
+    music.volume = 0;
+    music.play();
+
+    let vol = 0;
+    const fade = setInterval(() => {
+        if (vol < 0.3) {
+            vol += 0.02;
+            music.volume = vol;
+        } else { clearInterval(fade); }
+    }, 100);
+}
+
+const weddingDate = new Date("June 15, 2026 19:00:00").getTime();
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = weddingDate - now;
+
+    document.getElementById("days").innerText = Math.max(Math.floor(distance / (1000 * 60 * 60 * 24)), 0);
+    document.getElementById("hours").innerText = Math.max(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60)),0);
+    document.getElementById("minutes").innerText = Math.max(Math.floor((distance % (1000*60*60)) / (1000*60)),0);
+    document.getElementById("seconds").innerText = Math.max(Math.floor((distance % (1000*60)) / 1000),0);
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
