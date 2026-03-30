@@ -1,390 +1,531 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap"
+        rel="stylesheet">
 
-<style>
-body {
-    margin: 0;
-    overflow-x: hidden;
-    font-family: 'Poppins', sans-serif;
-    background: #ffffff;
-}
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+        }
 
-/* ✅ FIXED */
-.first-view {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    z-index: 10;
-}
+        /* ✅ FIXED */
+        .first-view {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 10;
+        }
 
-.shape {
-    position: absolute;
-    transition: all 1.5s ease;
-    max-width: 100%;
-    height: auto;
-}
+        .shape {
+            position: absolute;
+            transition: all 1.5s ease;
+            max-width: 100%;
+            height: auto;
+        }
 
-/* Desktop default */
-.left-shape { top: 15%; left: 0; width: 50%; }
-.right-shape { top: 15%; right: 0; width: 50%; }
-.top-shape { top: 15%; left: 0; width: 100%; }
-.bottom-shape { bottom: 25%; left: 0; width: 100%; }
+        /* Desktop default */
+        .left-shape {
+            top: 15%;
+            left: 0;
+            width: 50%;
+        }
 
-.center-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    text-align: center;
-    transition: 0.5s;
-}
+        .right-shape {
+            top: 15%;
+            right: 0;
+            width: 50%;
+        }
 
-.center-btn img {
-    width: 120px;
-    max-width: 80vw;
-    transition: 0.5s;
-}
+        .top-shape {
+            top: 15%;
+            left: 0;
+            width: 100%;
+        }
 
-.center-btn:hover img {
-    transform: scale(1.1);
-}
+        .bottom-shape {
+            bottom: 25%;
+            left: 0;
+            width: 100%;
+        }
 
-.open .left-shape { transform: translateX(-100%); opacity: 0; }
-.open .right-shape { transform: translateX(100%); opacity: 0; }
-.open .top-shape { transform: translateY(-100%); opacity: 0; }
-.open .bottom-shape { transform: translateY(100%); opacity: 0; }
-.open .center-btn { opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(1.2); }
+        .center-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            text-align: center;
+            transition: 0.5s;
+        }
 
-.mirage-icon {
-    width: 130px;
-    max-width: 60vw;
-    margin: 25px 0;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 1.5s ease;
-    filter: drop-shadow(0 0 15px rgba(184,155,94,0.5));
-}
+        .center-btn img {
+            width: 120px;
+            max-width: 80vw;
+            transition: 0.5s;
+        }
 
-.open .mirage-icon {
-    opacity: 1;
-    transform: scale(1);
-    animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
-}
+        .center-btn:hover img {
+            transform: scale(1.1);
+        }
 
-@keyframes float {
-    0% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-10px) scale(1); }
-    100% { transform: translateY(0px) scale(1); }
-}
+        .open .left-shape {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
 
-@keyframes glow {
-    0% { filter: drop-shadow(0 0 5px rgba(184,155,94,0.4)); }
-    50% { filter: drop-shadow(0 0 20px rgba(184,155,94,1)); }
-    100% { filter: drop-shadow(0 0 5px rgba(184,155,94,0.4)); }
-}
+        .open .right-shape {
+            transform: translateX(100%);
+            opacity: 0;
+        }
 
-.content {
-    position: absolute;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    background-image: url("https://optim.tildacdn.net/tild6537-6436-4433-b962-393536336630/-/format/webp/image_159.png.webp");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 2s ease;
-    padding: 20px;
-    box-sizing: border-box;
-}
+        .open .top-shape {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
 
-.content::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(4px);
-    z-index: 0;
-}
+        .open .bottom-shape {
+            transform: translateY(100%);
+            opacity: 0;
+        }
 
-.content * { position: relative; z-index: 1; }
+        .open .center-btn {
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
 
-.open .content { opacity: 1; }
+        .mirage-icon {
+            width: 130px;
+            max-width: 60vw;
+            margin: 25px 0;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1.5s ease;
+            filter: drop-shadow(0 0 15px rgba(184, 155, 94, 0.5));
+        }
 
-@font-face {
-    font-family: 'MyFont';
-    src: url('myfont.woff') format('truetype');
-}
+        .open .mirage-icon {
+            opacity: 1;
+            transform: scale(1);
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+        }
 
-.htitle {
-  margin-bottom:10px;
-  color:#b89b5e;
-  letter-spacing:3px;
-  font-family: 'MyFont', sans-serif;
-}
+        @keyframes float {
+            0% {
+                transform: translateY(0px) scale(1);
+            }
 
-h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #b89b5e; margin: 10px 0; }
-h2 { font-weight: 300; letter-spacing: 5px; color: #777; text-transform: uppercase; margin: 0; }
-p { color: #444; font-size: 1.1rem; line-height: 1.6; }
+            50% {
+                transform: translateY(-10px) scale(1);
+            }
 
-.content h1, .content h2, .content p { opacity: 0; transform: translateY(20px); transition: all 1s ease; }
-.open .content h2 { transition-delay: 0.5s; opacity:1; transform:translateY(0); }
-.open .content h1 { transition-delay: 1s; opacity:1; transform:translateY(0); }
-.open .content p:nth-of-type(1) { transition-delay: 1.5s; opacity:1; transform:translateY(0); }
-.open .content p:nth-of-type(2) { transition-delay: 1.8s; opacity:1; transform:translateY(0); }
-.open .content p:nth-of-type(3) { transition-delay: 2.1s; opacity:1; transform:translateY(0); }
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+        }
 
-.countdown-section {
-    position: relative;
-    width: 100%;
-    margin-top: 40px;
-}
+        @keyframes glow {
+            0% {
+                filter: drop-shadow(0 0 5px rgba(184, 155, 94, 0.4));
+            }
 
-/* Center white paper */
-.countdown-inner {
-    padding: 50px 20px;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
+            50% {
+                filter: drop-shadow(0 0 20px rgba(184, 155, 94, 1));
+            }
 
-/* Title like screenshot */
-.count-title {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: #777;
-    margin-bottom: 20px;
-}
+            100% {
+                filter: drop-shadow(0 0 5px rgba(184, 155, 94, 0.4));
+            }
+        }
 
-/* SVG masks */
-.mask-top,
-.mask-bottom {
-    width: 100%;
-    height: auto;
-    display: block;
-    position: relative;
-    z-index: 1;
-}
+        .content {
+            position: absolute;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            background-image: url("https://optim.tildacdn.net/tild6537-6436-4433-b962-393536336630/-/format/webp/image_159.png.webp");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 2s ease;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-/* Rotate bottom mask */
-.mask-bottom {
-    transform: rotate(180deg);
-    margin-top: -5px;
-}
+        .page {
+            background-image: url("2.jpg");
+            background-size: cover;
+            background-position: center;
+            width: 120%;
+            min-height: 100vh;
+        }
 
-/* Make masks overlap nicely */
-.mask-top {
-    margin-bottom: -5px;
-}
+        .content::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 0;
+        }
 
-.hall-top {
-        width: 100%;
-    height: auto;
-    display: block;
-    position: relative;
-    z-index: 1;
-}
+        .content * {
+            position: relative;
+            z-index: 1;
+        }
 
-/* Improve countdown style */
-#countdown {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    color: #333;
-}
+        .open .content {
+            opacity: 1;
+        }
 
-.countdown-item span {
-    font-size: 2rem;
-    font-weight: 600;
-}
+        @font-face {
+            font-family: 'MyFont';
+            src: url('myfont.woff') format('truetype');
+        }
 
-.countdown-item small {
-    font-size: 0.8rem;
-    color: #777;
-}
+        .htitle {
+            margin-bottom: 10px;
+            color: #b89b5e;
+            letter-spacing: 3px;
+            font-family: 'MyFont', sans-serif;
+        }
 
-.divider {
-    width: 60px;
-    height: 2px;
-    background: #b89b5e;
-    margin: 15px auto;
-}
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: #b89b5e;
+            margin: 10px 0;
+        }
 
-/* ✅ MOBILE FIX */
-@media(max-width:600px){
+        h2 {
+            font-weight: 300;
+            letter-spacing: 5px;
+            color: #777;
+            text-transform: uppercase;
+            margin: 0;
+        }
 
-    h1 { font-size: 2.2rem; }
-    h2 { font-size: 1rem; letter-spacing: 3px; }
-    .center-btn img { width: 80px; }
+        p {
+            color: #444;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
 
-    .left-shape,
-    .right-shape {
-        width: 60%;
-        top: 20%;
-    }
+        .content h1,
+        .content h2,
+        .content p {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+        }
 
-    .top-shape {
-        width: 120%;
-        left: -10%;
-    }
+        .open .content h2 {
+            transition-delay: 0.5s;
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    .bottom-shape {
-        width: 120%;
-        left: -10%;
-        bottom: 15%;
-    }
-}
+        .open .content h1 {
+            transition-delay: 1s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .open .content p:nth-of-type(1) {
+            transition-delay: 1.5s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .open .content p:nth-of-type(2) {
+            transition-delay: 1.8s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .open .content p:nth-of-type(3) {
+            transition-delay: 2.1s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .countdown-section {
+            position: relative;
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        /* Center white paper */
+        .countdown-inner {
+            padding: 50px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Title like screenshot */
+        .count-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        /* SVG masks */
+        .mask-top,
+        .mask-bottom {
+            width: 120%;
+            left: -10%;
+            height: auto;
+            align-items: center;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Rotate bottom mask */
+        .mask-bottom {
+            transform: rotate(180deg);
+            margin-top: -5px;
+        }
+
+        /* Make masks overlap nicely */
+        .mask-top {
+
+            margin-bottom: -5px;
+        }
+
+        .hall-top {
+            width: 100%;
+            height: auto;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Improve countdown style */
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .countdown-item span {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .countdown-item small {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: #b89b5e;
+            margin: 15px auto;
+        }
+
+        /* ✅ MOBILE FIX */
+        @media(max-width:600px) {
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+                letter-spacing: 3px;
+            }
+
+            .center-btn img {
+                width: 80px;
+            }
+
+            .left-shape,
+            .right-shape {
+                width: 60%;
+                top: 20%;
+            }
+
+            .top-shape {
+                width: 120%;
+                left: -10%;
+            }
+
+            .bottom-shape {
+                width: 120%;
+                left: -10%;
+                bottom: 15%;
+            }
+        }
 
 
-.location-card {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    margin: 15px auto;
-}
+        .location-card {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 15px auto;
+        }
 
-/* Image */
-.bg-image {
-    width: 100%;
-    display: block;
-}
+        /* Image */
+        .bg-image {
+            width: 108%;
+            left: -4%;
+            display: block;
+        }
 
-/* TEXT OVER IMAGE */
-.overlay-text {
-    position: absolute;
-    top: -5%;
-    left: 50%;
-    transform: translateX(-50%);
-    
-    text-align: center;
-    color: #2f2f2f;
-    width: 90%;
-}
+        /* TEXT OVER IMAGE */
+        .overlay-text {
+            position: absolute;
+            top: -5%;
+            left: 50%;
+            transform: translateX(-50%);
+
+            text-align: center;
+            color: #2f2f2f;
+            width: 90%;
+        }
 
 
-/* Place */
-.place {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-}
+        /* Place */
+        .place {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
 
-/* Address */
-.address {
-    font-size: 1.1rem;
-    line-height: 1.6;
-}
-</style>
+        /* Address */
+        .address {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 
 <body>
 
-<audio id="bgMusic" loop>
-    <source src="your-musi.mp3" type="audio/mpeg">
-</audio>
+    <audio id="bgMusic" loop>
+        <source src="your-musi.mp3" type="audio/mpeg">
+    </audio>
 
-<div class="first-view">
-    <img class="shape left-shape" src="https://static.tildacdn.net/tild6338-3733-4431-a363-306634383864/Polygon_4.png">
-    <img class="shape right-shape" src="https://static.tildacdn.net/tild3636-6566-4132-b665-343766326335/Polygon_3.png">
-    <img class="shape top-shape" src="https://static.tildacdn.net/tild3762-3738-4361-b134-333538333135/Polygon_1_3.png">
-    <img class="shape bottom-shape" src="https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png">
+    <div class="first-view">
+        <img class="shape left-shape"
+            src="https://static.tildacdn.net/tild6338-3733-4431-a363-306634383864/Polygon_4.png">
+        <img class="shape right-shape"
+            src="https://static.tildacdn.net/tild3636-6566-4132-b665-343766326335/Polygon_3.png">
+        <img class="shape top-shape"
+            src="https://static.tildacdn.net/tild3762-3738-4361-b134-333538333135/Polygon_1_3.png">
+        <img class="shape bottom-shape"
+            src="https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png">
 
-    <div class="center-btn" onclick="openInvite()">
-        <h2 class="htitle">بانگهێشتی هاوسەرگیری</h2>
-        <img src="https://static.tildacdn.net/tild3435-3731-4464-a537-636664626563/ChatGPT_Image_Aug_3_.png">
-        <p style="font-family:'myfont'; font-size:12px; color:#888;">
-        قَالَ رَسُولُ اللَّه ﷺ ...
-        </p>
-    </div>
-</div>
-
-<div class="content">
-    <h2>With Love & Joy</h2>
-    <img src="png-Photoroom.png" class="mirage-icon">
-    <h1>Ahmed & Sara</h1>
-    <p>Together with their families,<br>request the honor of your presence at their wedding celebration</p>
-
-    <div class="divider"></div>
-
-<div class="countdown-section">
-    
-    <img class="mask-top" src="https://static.tildacdn.net/tild3832-6561-4131-b539-313934396635/Mask_group_2_1_Trace.svg">
-
-    <div class="countdown-inner">
-        <p class="count-title">The Celebration Begins In</p>
-
-        <div id="countdown">
-            <div class="countdown-item"><span id="days">0</span><small>Days</small></div>
-            <div class="countdown-item"><span id="hours">0</span><small>Hours</small></div>
-            <div class="countdown-item"><span id="minutes">0</span><small>Minutes</small></div>
-            <div class="countdown-item"><span id="seconds">0</span><small>Seconds</small></div>
+        <div class="center-btn" onclick="openInvite()">
+            <h2 class="htitle">بانگهێشتی هاوسەرگیری</h2>
+            <img src="https://static.tildacdn.net/tild3435-3731-4464-a537-636664626563/ChatGPT_Image_Aug_3_.png">
+            <p style="font-family:'myfont'; font-size:12px; color:#888;">
+                قَالَ رَسُولُ اللَّه ﷺ ...
+            </p>
         </div>
     </div>
 
-    <img class="mask-bottom" src="https://static.tildacdn.net/tild3832-6561-4131-b539-313934396635/Mask_group_2_1_Trace.svg">
+    <div class="content">
+        <div class="page">
+            <h1 style="padding: 20%;"></h1>
+            <img src="png-Photoroom.png" class="mirage-icon">
+            <h1>Ahmed & Sara</h1>
+            <p>Together with their families,<br>request the honor of your presence at their wedding celebration</p>
+        </div>
 
-</div>
-<div class="location-card">
-    <img src="1.webp" class="bg-image">
+        <div class="divider"></div>
 
-    <div class="overlay-text">
-        <h3 class="place">Chateau de Paon</h3>
-        <p class="address">
-            Address: Petit Chemin de Saint-Gilles<br>
-            13200 Arles, France
-        </p>
+        <div class="countdown-section">
+
+            <img class="mask-top"
+                src="https://static.tildacdn.net/tild3832-6561-4131-b539-313934396635/Mask_group_2_1_Trace.svg">
+
+            <div class="countdown-inner">
+                <p class="count-title">The Celebration Begins In</p>
+
+                <div id="countdown">
+                    <div class="countdown-item"><span id="days">0</span><small>Days</small></div>
+                    <div class="countdown-item"><span id="hours">0</span><small>Hours</small></div>
+                    <div class="countdown-item"><span id="minutes">0</span><small>Minutes</small></div>
+                    <div class="countdown-item"><span id="seconds">0</span><small>Seconds</small></div>
+                </div>
+            </div>
+
+            <img class="mask-bottom"
+                src="https://static.tildacdn.net/tild3832-6561-4131-b539-313934396635/Mask_group_2_1_Trace.svg">
+
+        </div>
+        <div class="location-card">
+            <img src="1.webp" class="bg-image">
+
+            <div class="overlay-text">
+                <h3 class="place">Chateau de Paon</h3>
+                <p class="address">
+                    Address: Petit Chemin de Saint-Gilles<br>
+                    13200 Arles, France
+                </p>
+            </div>
+        </div>
+
     </div>
-</div>
 
-</div>
+    <script>
+        function openInvite() {
+            document.body.classList.add("open");
+            const music = document.getElementById("bgMusic");
+            music.volume = 0;
+            music.play();
 
-<script>
-function openInvite() {
-    document.body.classList.add("open");
-    const music = document.getElementById("bgMusic");
-    music.volume = 0;
-    music.play();
+            let vol = 0;
+            const fade = setInterval(() => {
+                if (vol < 0.3) {
+                    vol += 0.02;
+                    music.volume = vol;
+                } else { clearInterval(fade); }
+            }, 100);
+        }
 
-    let vol = 0;
-    const fade = setInterval(() => {
-        if (vol < 0.3) {
-            vol += 0.02;
-            music.volume = vol;
-        } else { clearInterval(fade); }
-    }, 100);
-}
+        const weddingDate = new Date("June 15, 2026 19:00:00").getTime();
 
-const weddingDate = new Date("June 15, 2026 19:00:00").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
 
-function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = weddingDate - now;
+            document.getElementById("days").innerText = Math.max(Math.floor(distance / (1000 * 60 * 60 * 24)), 0);
+            document.getElementById("hours").innerText = Math.max(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)), 0);
+            document.getElementById("minutes").innerText = Math.max(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)), 0);
+            document.getElementById("seconds").innerText = Math.max(Math.floor((distance % (1000 * 60)) / 1000), 0);
+        }
 
-    document.getElementById("days").innerText = Math.max(Math.floor(distance / (1000 * 60 * 60 * 24)), 0);
-    document.getElementById("hours").innerText = Math.max(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000*60*60)),0);
-    document.getElementById("minutes").innerText = Math.max(Math.floor((distance % (1000*60*60)) / (1000*60)),0);
-    document.getElementById("seconds").innerText = Math.max(Math.floor((distance % (1000*60)) / 1000),0);
-}
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-</script>
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 
 </body>
+
 </html>
