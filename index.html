@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -12,9 +12,10 @@ body {
     margin: 0;
     overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
-    background: #f8f5f2;
+    background: #ffffff;
 }
 
+/* ✅ FIXED */
 .first-view {
     position: fixed;
     width: 100%;
@@ -30,6 +31,7 @@ body {
     height: auto;
 }
 
+/* Desktop default */
 .left-shape { top: 15%; left: 0; width: 50%; }
 .right-shape { top: 15%; right: 0; width: 50%; }
 .top-shape { top: 15%; left: 0; width: 100%; }
@@ -128,13 +130,12 @@ body {
     font-family: 'MyFont';
     src: url('myfont.woff') format('truetype');
 }
+
 .htitle {
   margin-bottom:10px;
   color:#b89b5e;
   letter-spacing:3px;
   font-family: 'MyFont', sans-serif;
-
-  ;
 }
 
 h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: #b89b5e; margin: 10px 0; }
@@ -148,24 +149,68 @@ p { color: #444; font-size: 1.1rem; line-height: 1.6; }
 .open .content p:nth-of-type(2) { transition-delay: 1.8s; opacity:1; transform:translateY(0); }
 .open .content p:nth-of-type(3) { transition-delay: 2.1s; opacity:1; transform:translateY(0); }
 
-#countdown {
-    margin: 25px 0;
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
+.countdown-section {
+    position: relative;
+    width: 100%;
+    margin-top: 40px;
 }
 
-.countdown-item {
-    background: rgba(184,155,94,0.15);
-    padding: 10px 15px;
-    border-radius: 10px;
-    min-width: 50px;
+/* Center white paper */
+.countdown-inner {
+    padding: 50px 20px;
     text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
-.countdown-item span { display: block; font-weight: 600; font-size: 1.3rem; color: #b89b5e; }
-.countdown-item small { display: block; font-size: 0.7rem; color: #555; }
+/* Title like screenshot */
+.count-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+/* SVG masks */
+.mask-top,
+.mask-bottom {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* Rotate bottom mask */
+.mask-bottom {
+    transform: rotate(180deg);
+    margin-top: -5px;
+}
+
+/* Make masks overlap nicely */
+.mask-top {
+    margin-bottom: -5px;
+}
+
+/* Improve countdown style */
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #333;
+}
+
+.countdown-item span {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.countdown-item small {
+    font-size: 0.8rem;
+    color: #777;
+}
 
 .divider {
     width: 60px;
@@ -174,10 +219,29 @@ p { color: #444; font-size: 1.1rem; line-height: 1.6; }
     margin: 15px auto;
 }
 
+/* ✅ MOBILE FIX */
 @media(max-width:600px){
+
     h1 { font-size: 2.2rem; }
     h2 { font-size: 1rem; letter-spacing: 3px; }
     .center-btn img { width: 80px; }
+
+    .left-shape,
+    .right-shape {
+        width: 60%;
+        top: 20%;
+    }
+
+    .top-shape {
+        width: 120%;
+        left: -10%;
+    }
+
+    .bottom-shape {
+        width: 120%;
+        left: -10%;
+        bottom: 15%;
+    }
 }
 </style>
 </head>
@@ -185,7 +249,7 @@ p { color: #444; font-size: 1.1rem; line-height: 1.6; }
 <body>
 
 <audio id="bgMusic" loop>
-    <source src="your-music.mp3" type="audio/mpeg">
+    <source src="your-musi.mp3" type="audio/mpeg">
 </audio>
 
 <div class="first-view">
@@ -195,16 +259,11 @@ p { color: #444; font-size: 1.1rem; line-height: 1.6; }
     <img class="shape bottom-shape" src="https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png">
 
     <div class="center-btn" onclick="openInvite()">
-        <h2 class="htitle">
-            بانگهێشتی هاوسەرگیری
-        </h2>
-
+        <h2 class="htitle">بانگهێشتی هاوسەرگیری</h2>
         <img src="https://static.tildacdn.net/tild3435-3731-4464-a537-636664626563/ChatGPT_Image_Aug_3_.png">
-
-        <p style="font-family:'myfont'; font-size:12px; color:#888;">قَالَ رَسُولُ اللَّه ﷺ 
-يُسْتَجَابُ لِأَحَدِكُمْ مَا لَمْ يَعْجَلْ، فَيَقُولُ : قَدْ دَعَوْتُ رَبِّي فَلَمْ يَسْتَجِبْ لِي .
-واتە : 
-دوعای هەر یەکێک لە ئێوە وەڵام دەدرێتەوە مادام پەلە نەکات ،پەلەکردنیش ئەوەیە دەڵێت : دوعام کرد و پەروەردگارم وەڵامی نەدامەوە  .</p>
+        <p style="font-family:'myfont'; font-size:12px; color:#888;">
+        قَالَ رَسُولُ اللَّه ﷺ ...
+        </p>
     </div>
 </div>
 
@@ -220,12 +279,24 @@ p { color: #444; font-size: 1.1rem; line-height: 1.6; }
 
     <div class="divider"></div>
 
-    <div id="countdown">
-        <div class="countdown-item"><span id="days">0</span><small>Days</small></div>
-        <div class="countdown-item"><span id="hours">0</span><small>Hours</small></div>
-        <div class="countdown-item"><span id="minutes">0</span><small>Minutes</small></div>
-        <div class="countdown-item"><span id="seconds">0</span><small>Seconds</small></div>
+<div class="countdown-section">
+    
+    <img class="mask-top" src="https://static.tildacdn.net/tild3832-6561-4131-b539-313934396635/Mask_group_2_1_Trace.svg">
+
+    <div class="countdown-inner">
+        <p class="count-title">The Celebration Begins In</p>
+
+        <div id="countdown">
+            <div class="countdown-item"><span id="days">0</span><small>Days</small></div>
+            <div class="countdown-item"><span id="hours">0</span><small>Hours</small></div>
+            <div class="countdown-item"><span id="minutes">0</span><small>Minutes</small></div>
+            <div class="countdown-item"><span id="seconds">0</span><small>Seconds</small></div>
+        </div>
     </div>
+
+    <img class="mask-bottom" src="https://static.tildacdn.net/tild3832-6561-4131-b539-313934396635/Mask_group_2_1_Trace.svg">
+
+</div>
 </div>
 
 <script>
