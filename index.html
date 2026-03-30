@@ -192,6 +192,14 @@ p { color: #444; font-size: 1.1rem; line-height: 1.6; }
     margin-bottom: -5px;
 }
 
+.hall-top {
+        width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
 /* Improve countdown style */
 #countdown {
     display: flex;
@@ -243,6 +251,45 @@ p { color: #444; font-size: 1.1rem; line-height: 1.6; }
         bottom: 15%;
     }
 }
+
+
+.location-card {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 15px auto;
+}
+
+/* Image */
+.bg-image {
+    width: 100%;
+    display: block;
+}
+
+/* TEXT OVER IMAGE */
+.overlay-text {
+    position: absolute;
+    top: -5%;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    text-align: center;
+    color: #2f2f2f;
+    width: 90%;
+}
+
+
+/* Place */
+.place {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+/* Address */
+.address {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
 </style>
 </head>
 
@@ -272,10 +319,6 @@ p { color: #444; font-size: 1.1rem; line-height: 1.6; }
     <img src="png-Photoroom.png" class="mirage-icon">
     <h1>Ahmed & Sara</h1>
     <p>Together with their families,<br>request the honor of your presence at their wedding celebration</p>
-    <p><strong>June 15, 2026 • 7:00 PM</strong></p>
-    <p>Grand Palace Hall</p>
-    <p style="margin-top:10px; font-size:0.9rem;">Kindly RSVP by June 1</p>
-    <p>📍 <a href="#">View Location</a></p>
 
     <div class="divider"></div>
 
@@ -297,6 +340,18 @@ p { color: #444; font-size: 1.1rem; line-height: 1.6; }
     <img class="mask-bottom" src="https://static.tildacdn.net/tild3832-6561-4131-b539-313934396635/Mask_group_2_1_Trace.svg">
 
 </div>
+<div class="location-card">
+    <img src="1.webp" class="bg-image">
+
+    <div class="overlay-text">
+        <h3 class="place">Chateau de Paon</h3>
+        <p class="address">
+            Address: Petit Chemin de Saint-Gilles<br>
+            13200 Arles, France
+        </p>
+    </div>
+</div>
+
 </div>
 
 <script>
