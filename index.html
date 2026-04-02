@@ -28,13 +28,29 @@ h1 {
 .shape {
     position: absolute;
     transition: all 1.5s ease;
-    width: 50%;
+    width: 120%;
 }
 
-.left-shape { top:15%; left:0; }
-.right-shape { top:15%; right:0; }
-.top-shape { top:15%; left:0; width:100%; }
-.bottom-shape { bottom:25%; left:0; width:100%; }
+.left-shape {
+        top: 0%;
+        left: -60%;               /* push outside to scale nicely */
+    }
+
+    .right-shape {
+        top: 0%;
+        right: -60%;
+    }
+
+    .top-shape {
+        left: -15%;
+        width: 130%;
+    }
+
+    .bottom-shape {
+        bottom: 0%;
+        left: -15%;
+        width: 130%;
+    }
 
 .center-btn {
     position: absolute;
