@@ -1,18 +1,22 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
     <title>Wedding Invitation</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&family=Amiri&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400&display=swap"
+        rel="stylesheet">
 
     <style>
         @font-face {
             font-family: 'Kurdishfont';
             src: url('myfont.woff') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
 
         body {
@@ -20,7 +24,7 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* FIRST VIEW */
+        /* ================= FIRST VIEW ================= */
         .first-view {
             position: fixed;
             width: 100%;
@@ -33,15 +37,14 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* ✅ Quran font applied */
-        h3 {
-            font-family: 'Amiri', serif;
-            direction: rtl;
-            font-size: 22px;
+        p {
+            font-family: 'kurdishfont', sans-serif;
         }
 
-        p {
-            font-family: 'Kurdishfont', sans-serif;
+        h3 {
+            font-family: 'Amiri', serif;
+            font-size: 22px;
+            direction: rtl;
         }
 
         .shape {
@@ -50,10 +53,28 @@
             width: 100%;
         }
 
-        .left-shape { top: 5%; left: -60%; width: 115%; }
-        .right-shape { top: 4%; right: -60%; width: 115%; }
-        .top-shape { left: -65%; width: 230%; }
-        .bottom-shape { bottom: 0%; left: -50%; width: 200%; }
+        .left-shape {
+            top: 5%;
+            left: -60%;
+            width: 115%;
+        }
+
+        .right-shape {
+            top: 4%;
+            right: -60%;
+            width: 115%;
+        }
+
+        .top-shape {
+            left: -65%;
+            width: 230%;
+        }
+
+        .bottom-shape {
+            bottom: 0%;
+            left: -50%;
+            width: 200%;
+        }
 
         .center-btn {
             position: absolute;
@@ -64,24 +85,46 @@
             cursor: pointer;
         }
 
-        .center-btn img { width: 120px; }
+        .center-btn img {
+            width: 120px;
+        }
 
         /* OPEN ANIMATION */
-        .open .left-shape { transform: translateX(-100%); opacity: 0; }
-        .open .right-shape { transform: translateX(100%); opacity: 0; }
-        .open .top-shape { transform: translateY(-100%); opacity: 0; }
-        .open .bottom-shape { transform: translateY(100%); opacity: 0; }
-        .open .center-btn { opacity: 0; }
+        .open .left-shape {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
 
-        /* CONTENT */
+        .open .right-shape {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        .open .top-shape {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .open .bottom-shape {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        .open .center-btn {
+            opacity: 0;
+        }
+
+        /* ================= CONTENT ================= */
         .content {
             opacity: 0;
             transition: 2s;
         }
 
-        .open .content { opacity: 1; }
+        .open .content {
+            opacity: 1;
+        }
 
-        /* HERO */
+        /* ================= HERO ================= */
         .page {
             background: url("2.jpg") center/cover;
             height: 100vh;
@@ -93,18 +136,61 @@
             color: #b89b5e;
         }
 
-        /* COUNTDOWN */
+        /* ================= COUNTDOWN SECTION ================= */
         .countdown-section {
             background: #66021f;
+            /* 🔥 RED BACKGROUND */
             padding: 80px 0;
+            position: relative;
         }
 
+        /* WHITE PAPER */
         .countdown-inner {
             background: #f5f2ee;
             padding: 60px 20px;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
+        .mirage-icon {
+            width: 160px;
+            max-width: 60vw;
+        }
+
+        .open .mirage-icon {
+            opacity: 1;
+            transform: scale(1);
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+        }
+
+        /* MASK IMAGES */
+        .mask-top,
+        .mask-bottom {
+            width: 100%;
+            display: block;
+            position: relative;
+            z-index: 3;
+        }
+
+        .mask-top {
+            margin-bottom: -50px;
+        }
+
+        .mask-bottom {
+            transform: rotate(180deg);
+            margin-top: -50px;
+        }
+
+        /* TEXT STYLE */
+        .count-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        /* COUNTDOWN */
         #countdown {
             display: flex;
             justify-content: center;
@@ -113,14 +199,20 @@
             font-size: 2rem;
         }
 
-        /* LOCATION */
+        .countdown-item span {
+            font-weight: 600;
+        }
+
+        /* ================= LOCATION ================= */
         .location-card {
             max-width: 900px;
             margin: 40px auto;
             position: relative;
         }
 
-        .bg-image { width: 100%; }
+        .bg-image {
+            width: 100%;
+        }
 
         .overlay-text {
             position: absolute;
@@ -128,6 +220,7 @@
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
+            color: #333;
         }
 
         .divider {
@@ -135,57 +228,99 @@
             height: 2px;
             margin: 15px auto;
             background: linear-gradient(to right, transparent, #b89b5e, transparent);
+            position: relative;
+            animation: glowLine 2s infinite alternate;
         }
 
+        @keyframes glowLine {
+            from {
+                opacity: 0.6;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Optional decorative center dot */
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: #b89b5e;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ================= MOBILE ================= */
         @media(max-width:600px) {
             #countdown {
                 flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
 </head>
 
 <body>
-
-    <!-- ✅ AUDIO -->
     <audio id="bg-music" src="music.mp3" preload="auto" loop></audio>
-
     <div class="first-view">
-        <img class="shape left-shape" src="https://static.tildacdn.net/tild6338-3733-4431-a363-306634383864/Polygon_4.png">
-        <img class="shape right-shape" src="https://static.tildacdn.net/tild3636-6566-4132-b665-343766326335/Polygon_3.png">
-        <img class="shape top-shape" src="https://static.tildacdn.net/tild3762-3738-4361-b134-333538333135/Polygon_1_3.png">
-        <img class="shape bottom-shape" src="https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png">
+        <img class="shape left-shape"
+            src="https://static.tildacdn.net/tild6338-3733-4431-a363-306634383864/Polygon_4.png">
+        <img class="shape right-shape"
+            src="https://static.tildacdn.net/tild3636-6566-4132-b665-343766326335/Polygon_3.png">
+        <img class="shape top-shape"
+            src="https://static.tildacdn.net/tild3762-3738-4361-b134-333538333135/Polygon_1_3.png">
+        <img class="shape bottom-shape"
+            src="https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png">
 
         <div class="center-btn" onclick="openInvite()">
             <h3>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h3>
             <img src="https://static.tildacdn.net/tild3435-3731-4464-a537-636664626563/ChatGPT_Image_Aug_3_.png">
             <div class="divider"></div>
-            <p style="color: rgb(82, 82, 82); position: absolute;">
-                بانگهێشتنامەی هاوسەرگیری
-            </p>
+            <p style="font-family: 'kurdishfont', sans-serif; color: rgb(82, 82, 82); position: absolute;">بانگهێشتنامەی
+                هاوسەرگیری</p>
         </div>
     </div>
 
     <div class="content">
 
+        <!-- HERO -->
         <div class="page">
+            <img src="ring.webp" class="mirage-icon" />
             <h1>Ahmed & Selar</h1>
             <p>بەخۆشحاڵیەوە بانگهێشتتان دەکەین بۆ ئاهەنگی هاوسەرگیریەکەمان</p>
         </div>
 
+        <!-- COUNTDOWN -->
         <div class="countdown-section">
+
+            <!-- TOP TORN MASK -->
+            <img class="mask-top"
+                src="https://static.tildacdn.net/tild3832-6561-4131-b539-313934396635/Mask_group_2_1_Trace.svg">
+
+            <!-- WHITE CONTENT -->
             <div class="countdown-inner">
-                <p>The Celebration Begins In</p>
+                <p class="count-title">The Celebration Begins In</p>
 
                 <div id="countdown">
-                    <div><span id="days">0</span><br>Days</div>
-                    <div><span id="hours">0</span><br>Hours</div>
-                    <div><span id="minutes">0</span><br>Minutes</div>
-                    <div><span id="seconds">0</span><br>Seconds</div>
+                    <div class="countdown-item"><span id="days">0</span><br>Days</div>
+                    <div class="countdown-item"><span id="hours">0</span><br>Hours</div>
+                    <div class="countdown-item"><span id="minutes">0</span><br>Minutes</div>
+                    <div class="countdown-item"><span id="seconds">0</span><br>Seconds</div>
                 </div>
             </div>
+
+            <!-- BOTTOM TORN MASK -->
+            <img class="mask-bottom"
+                src="https://static.tildacdn.net/tild3832-6561-4131-b539-313934396635/Mask_group_2_1_Trace.svg">
+
         </div>
 
+        <!-- LOCATION -->
         <div class="location-card">
             <img src="1.webp" class="bg-image">
             <div class="overlay-text">
@@ -232,4 +367,5 @@
     </script>
 
 </body>
+
 </html>
