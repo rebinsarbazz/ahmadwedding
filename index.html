@@ -11,6 +11,13 @@
         rel="stylesheet">
 
     <style>
+        @font-face {
+            font-family: 'Kurdishfont';
+            src: url('myfont.woff') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -27,6 +34,10 @@
 
         h1 {
             font-family: 'Playfair Display', serif;
+        }
+
+        p {
+            font-family: 'kurdishfont', sans-serif;
         }
 
         .shape {
@@ -138,11 +149,6 @@
         .mirage-icon {
             width: 160px;
             max-width: 60vw;
-            margin: 25px 0;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 1.5s ease;
-            filter: drop-shadow(0 0 15px rgba(184, 155, 94, 0.5));
         }
 
         .open .mirage-icon {
@@ -210,6 +216,38 @@
             color: #333;
         }
 
+        .divider {
+            width: 180px;
+            height: 2px;
+            margin: 15px auto;
+            background: linear-gradient(to right, transparent, #b89b5e, transparent);
+            position: relative;
+            animation: glowLine 2s infinite alternate;
+        }
+
+        @keyframes glowLine {
+            from {
+                opacity: 0.6;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Optional decorative center dot */
+        .divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: #b89b5e;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
         /* ================= MOBILE ================= */
         @media(max-width:600px) {
             #countdown {
@@ -233,8 +271,11 @@
             src="https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png">
 
         <div class="center-btn" onclick="openInvite()">
-            <h2>Touch to Open</h2>
+            <h2>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h2>
             <img src="https://static.tildacdn.net/tild3435-3731-4464-a537-636664626563/ChatGPT_Image_Aug_3_.png">
+            <div class="divider"></div>
+            <p style="font-family: 'kurdishfont', sans-serif; color: rgb(82, 82, 82); position: absolute;">بانگهێشتنامەی
+                هاوسەرگیری</p>
         </div>
     </div>
 
@@ -242,8 +283,9 @@
 
         <!-- HERO -->
         <div class="page">
+            <img src="ring.webp" class="mirage-icon" />
             <h1>Ahmed & Selar</h1>
-            <p>We invite you to celebrate our wedding</p>
+            <p>بەخۆشحاڵیەوە بانگهێشتتان دەکەین بۆ ئاهەنگی هاوسەرگیریەکەمان</p>
         </div>
 
         <!-- COUNTDOWN -->
