@@ -369,7 +369,7 @@
     </div>
 
     <div class="content">
-        <button id="music-btn" class="music-btn" onclick="toggleMusic()">❚❚</button>
+        <button id="music-btn" class="music-btn" onclick="toggleMusic()">⏹</button>
         <!-- HERO -->
         <div class="page">
             <img src="ring.webp" class="mirage-icon" />
@@ -460,7 +460,7 @@
         function toggleMusic() {
             if (music.paused) {
                 music.play();
-                btn.innerHTML = "⏸"; // pause icon
+                btn.innerHTML = "⏹"; // pause icon
             } else {
                 music.pause();
                 btn.innerHTML = "▶"; // play icon
