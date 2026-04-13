@@ -10,17 +10,17 @@
         rel="stylesheet">
     <link rel="icon" href="logo.png" type="image/png">
     <!-- Open Graph (Facebook, WhatsApp, etc.) -->
-<meta property="og:title" content="Wedding Invitation - Ahmed & Selar">
-<meta property="og:description" content="Join us for our special wedding celebration 💍">
-<meta property="og:image" content="https://ahmadwedding.vercel.app/logo.png">
-<meta property="og:url" content="https://ahmadwedding.vercel.app">
-<meta property="og:type" content="website">
+    <meta property="og:title" content="Wedding Invitation - Ahmed & Selar">
+    <meta property="og:description" content="Join us for our special wedding celebration 💍">
+    <meta property="og:image" content="https://ahmadwedding.vercel.app/logo.png">
+    <meta property="og:url" content="https://ahmadwedding.vercel.app">
+    <meta property="og:type" content="website">
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Wedding Invitation - Ahmed & Selar">
-<meta name="twitter:description" content="Join us for our special wedding celebration 💍">
-<meta name="twitter:image" content="https://ahmadwedding.vercel.app/logo.png">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Wedding Invitation - Ahmed & Selar">
+    <meta name="twitter:description" content="Join us for our special wedding celebration 💍">
+    <meta name="twitter:image" content="https://ahmadwedding.vercel.app/logo.png">
     <title>Wedding Invitation</title>
 
     <style>
@@ -357,6 +357,62 @@
         .music-btn:hover {
             background: rgba(0, 0, 0, 0.8);
         }
+
+        .map-container {
+            max-width: 1000px;
+            margin: 20px auto 0;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            background: #fff;
+            border: 2px solid #e9d5b5;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            display: block;
+            border: none;
+            filter: brightness(1.02) contrast(1.02);
+        }
+
+        .map-action {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .map-btn {
+            background: #66021f;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+        }
+
+        .map-btn:hover {
+            background: #8e2b3f;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .map-btn:active {
+            transform: translateY(1px);
+        }
     </style>
 </head>
 
@@ -376,7 +432,8 @@
             <h3>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h3>
             <img src="https://static.tildacdn.net/tild3435-3731-4464-a537-636664626563/ChatGPT_Image_Aug_3_.png">
             <div class="divider"></div>
-            <p style="font-family: 'kurdishfont', sans-serif; color: rgb(82, 82, 82); position: absolute; left: 10%;">بانگهێشتنامەی مارەکردن</p>
+            <p style="font-family: 'kurdishfont', sans-serif; color: rgb(82, 82, 82); position: absolute; left: 10%;">
+                بانگهێشتنامەی مارەکردن</p>
         </div>
     </div>
 
@@ -426,9 +483,28 @@
         <div class="location-card">
             <img src="1.webp" class="bg-image">
             <div class="overlay-text">
-                <h2>ناونیشان</h2>
-                <p>٥ حەسارۆک</p>
+                <p style="color: #b89b5e;">ڕۆشنبیری</p>
+                <div class="divider" style="margin-top: 35px;"></div>
+            <p style="font-family: 'Kurdishfont', sans-serif; color: #7b5a3b; margin-top: 12px;">
+                ڕێکەوت: 17/4/2026 | کاتژمێر 8:30 شەو
+            </p>
             </div>
+        </div>
+
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3222.4825216693575!2d44.040153075807886!3d36.130462972445734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDA3JzQ5LjciTiA0NMKwMDInMzMuOCJF!5e0!3m2!1sen!2siq!4v1776080527447!5m2!1sen!2siq"
+                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                title="Wedding Venue Map Erbil">
+            </iframe>
+        </div>
+
+        <!-- extra action buttons for navigation -->
+        <div class="map-action">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=36.130462972445734,44.040153075807886"
+                target="_blank" class="map-btn" rel="noopener noreferrer" style="font-family: 'kurdishfont', sans-serif;">
+                📍 دەستنیشانکردنی ڕێگە
+            </a>
         </div>
     </div>
 
@@ -451,7 +527,7 @@
             }, 200);
         }
 
-        const weddingDate = new Date("June 15, 2026 19:00:00").getTime();
+        const weddingDate = new Date("April 17, 2026 20:30:00").getTime();
 
         function updateCountdown() {
             const now = new Date().getTime();
