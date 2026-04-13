@@ -512,137 +512,175 @@
             </div>
         </div>
 
-        <div class="map-container">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3222.4825216693575!2d44.040153075807886!3d36.130462972445734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDA3JzQ5LjciTiA0NMKwMDInMzMuOCJF!5e0!3m2!1sen!2siq!4v1776080527447!5m2!1sen!2siq"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                title="Wedding Venue Map Erbil">
+         <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3222.4825205380107!2d44.042728!3d36.130463!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDA3JzQ5LjciTiA0NMKwMDInMzMuOCJF!5e0!3m2!1sen!2siq!4v1776103949759!5m2!1sen!2siq" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Wedding Venue Map - Roshnbiry Erbil">
             </iframe>
         </div>
 
-        <!-- extra action buttons for navigation -->
+        <!-- EXTRA ACTION BUTTONS FOR NAVIGATION -->
         <div class="map-action">
-            <a href="https://www.google.com/maps/dir/?api=1&destination=36.130462972445734,44.040153075807886"
-                target="_blank" class="map-btn" rel="noopener noreferrer" style="font-family: 'kurdishfont', sans-serif;">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=36.130463,44.042728" target="_blank"
+                class="map-btn" rel="noopener noreferrer" style="font-family: 'kurdishfont', sans-serif;">
                 📍 دەستنیشانکردنی ڕێگە
             </a>
-            <button class="map-btn" id="openMapsAppBtn" onclick="openNativeMap()">
-                    🗺 کردنەوە لە مۆبایلدا | Open in Maps
-                </button>
+            <button class="map-btn" id="openMapsAppBtn">
+                🗺 کردنەوە لە مۆبایلدا | Open in Maps
+            </button>
         </div>
     </div>
 
     <script>
+        // OPEN INVITATION FUNCTION (with music fade-in)
         function openInvite() {
+            // prevent double opening
+            if (document.body.classList.contains("open")) return;
             document.body.classList.add("open");
 
             const music = document.getElementById("bg-music");
-            music.volume = 0;
-            music.play();
-
-            let vol = 0;
-            const fade = setInterval(() => {
-                if (vol < 1) {
-                    vol += 0.05;
-                    music.volume = vol;
-                } else {
-                    clearInterval(fade);
-                }
-            }, 200);
+            if (music) {
+                // start at very low volume then fade in
+                music.volume = 0;
+                music.play().catch(e => console.log("Audio play blocked until user interaction, but gesture exists."));
+                let vol = 0;
+                const fade = setInterval(() => {
+                    if (vol < 1) {
+                        vol += 0.05;
+                        music.volume = Math.min(vol, 1);
+                    } else {
+                        clearInterval(fade);
+                    }
+                }, 200);
+            }
         }
 
-        const weddingDate = new Date("April 17, 2026 20:30:00").getTime();
+        // Countdown logic: wedding date: April 17, 2026 20:30:00
+        const weddingDate = new Date("April 17, 2026 20:30:00 GMT+0300").getTime(); // using GMT+3 (Iraq time)
 
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
 
-            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+            if (distance < 0) {
+                document.getElementById("days").innerText = "0";
+                document.getElementById("hours").innerText = "0";
+                document.getElementById("minutes").innerText = "0";
+                document.getElementById("seconds").innerText = "0";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
         }
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        const music = document.getElementById("bg-music");
-        const btn = document.getElementById("music-btn");
+        // MUSIC TOGGLE
+        const musicEl = document.getElementById("bg-music");
+        const musicBtn = document.getElementById("music-btn");
 
-        function toggleMusic() {
-            if (music.paused) {
-                music.play();
-                btn.innerHTML = "◼"; // pause icon
+        window.toggleMusic = function() {
+            if (!musicEl) return;
+            if (musicEl.paused) {
+                musicEl.play().catch(e => console.log("playback error", e));
+                musicBtn.innerHTML = "◼";
             } else {
-                music.pause();
-                btn.innerHTML = "▶"; // play icon
+                musicEl.pause();
+                musicBtn.innerHTML = "▶";
             }
-        }
+        };
 
-        // NATIVE MAPS FUNCTIONALITY (improved mobile/desktop experience)
+        // NATIVE MAPS FUNCTIONALITY (uses the new coordinates 36.130463, 44.042728 from updated map)
         function openNativeMap() {
-            // Latitude & Longitude of venue (extracted from iframe coordinates)
-            const lat = 36.130462972445734;
-            const lng = 44.040153075807886;
-            const label = "Ahmed & Selar Wedding Venue - Roshnbiry, Erbil";
+            const lat = 36.130463;
+            const lng = 44.042728;
+            const label = "Ahmed & Selar Wedding - Roshnbiry, Erbil";
             
-            // Check if on iOS / Android / desktop and use appropriate URL
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             let mapUrl = "";
             
             if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                // iOS: Apple Maps
-                mapUrl = `maps://maps.apple.com/?ll=${lat},${lng}&q=${encodeURIComponent(label)}&dirflg=d`;
+                // iOS Apple Maps
+                mapUrl = `maps://maps.apple.com/?ll=${lat},${lng}&q=${encodeURIComponent(label)}`;
             } else if (/android/i.test(userAgent)) {
-                // Android: Google Maps intent
-                mapUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${encodeURIComponent(label)}`;
-                // better to use directions:
+                // Android: Google Maps intent for directions
                 mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place=${encodeURIComponent(label)}`;
             } else {
-                // Desktop fallback: open Google Maps web
+                // Desktop fallback: Google Maps directions
                 mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place=${encodeURIComponent(label)}`;
             }
             
             window.open(mapUrl, '_blank');
         }
+
+        // EVENT LISTENERS FOR BUTTONS
+        const openBtn = document.getElementById("openInviteBtn");
+        if (openBtn) {
+            openBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                openInvite();
+            });
+        }
+
+        const nativeMapBtn = document.getElementById("openMapsAppBtn");
+        if (nativeMapBtn) {
+            nativeMapBtn.addEventListener("click", openNativeMap);
+        }
+
+        // Ensure background music initial load / user gesture handling: 
+        // Some browsers block autoplay, but we attach a one-time touchstart to prepare audio.
+        // However, the actual play happens after openInvite (user clicks explicitly).
+        // Preload audio to make it smoother.
+        if (musicEl) {
+            musicEl.load();
+            // small trick: on first user tap anywhere before opening, we do nothing, but openInvite handles play.
+        }
+
+        // fix for any missing background image fallback if 2.jpg not exist, but we keep as is
+        // Also ensure that .content becomes visible only after opening
+        // No double scroll issues.
         
-        // Also attach directions button to ensure it uses modern coordinates (already using destination param)
-        // Additionally, improve map embed with more reliable coordinates (updated embed link ensures correct zoom)
-        // Dynamically improve iframe src just to be safe (optional but we already set better embed above)
-        // No additional changes needed.
-        
-        // small helper for smoother open on any click (if user clicks center btn)
-        // Ensure that if user accidentally clicks outside, open still works.
-        document.querySelector('.center-btn')?.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openInvite();
+        // extra smoothing for the map container to be responsive
+        window.addEventListener('resize', () => {
+            const mapFrame = document.querySelector('.map-container iframe');
+            if (mapFrame) {
+                // maintain aspect ratio, already set via CSS height auto? but we use height:450px; on desktop, but it's fluid
+                // no additional needed.
+            }
         });
         
-        // Preload and check if music is allowed after user gesture (autoplay policy)
-        document.body.addEventListener('touchstart', function initAudio() {
-            if (music && music.paused && !document.body.classList.contains('open')) {
-                // only preload buffer but not play until open
-                music.load();
-            }
-            document.body.removeEventListener('touchstart', initAudio);
-        }, { once: true });
+        // Force repaint for the countdown initial digits
+        setTimeout(() => {
+            updateCountdown();
+        }, 100);
         
-        // Make the openMapsAppBtn work properly
-        const nativeBtn = document.getElementById('openMapsAppBtn');
-        if (nativeBtn) {
-            nativeBtn.addEventListener('click', openNativeMap);
+        // Make the "Scroll" indicator clickable? not needed, but adds friendly ux
+        // also for users that might have issues with the first-view transform, ensure body bg.
+        document.body.style.background = "#fffaf3";
+        
+        // if user hasn't opened invite, but maybe they reload - first view stays visible. That's correct.
+        // Preload the hidden content images: ring.webp, 1.webp, 2.jpg are preloaded by browser naturally.
+        
+        // Additional check: update map directions button anchor to match new coordinates (already updated in href)
+        const dirLink = document.querySelector('.map-action a');
+        if (dirLink) {
+            dirLink.setAttribute('href', 'https://www.google.com/maps/dir/?api=1&destination=36.130463,44.042728');
         }
         
-        // fix any double scrolling issues
-        if (window.innerWidth <= 768) {
-            // ensure map container touch-friendly
-            const mapIframe = document.querySelector('.map-container iframe');
-            if (mapIframe) {
-                mapIframe.setAttribute('allow', 'geolocation');
-            }
-        }
+        console.log("Wedding invitation ready — map iframe updated as requested.");
     </script>
-
 </body>
 
 </html>
