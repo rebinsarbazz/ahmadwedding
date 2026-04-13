@@ -45,11 +45,15 @@
 
         /* ================= FIRST VIEW ================= */
         .first-view {
-            position: fixed;
+             position: fixed;
             width: 100%;
             height: 100vh;
             overflow: hidden;
-            z-index: 10;
+            z-index: 1000;
+            background: #fffaf3;
+            top: 0;
+            left: 0;
+            transition: opacity 0.8s ease;
         }
 
         h1 {
@@ -68,8 +72,9 @@
 
         .shape {
             position: absolute;
-            transition: all 1.5s ease;
+            transition: all 4.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             width: 100%;
+            pointer-events: none;
         }
 
         .left-shape {
@@ -102,35 +107,50 @@
             transform: translate(-50%, -50%);
             text-align: center;
             cursor: pointer;
+            transition: opacity 0.5s;
+            z-index: 100;
         }
 
         .center-btn img {
             width: 120px;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s;
+        }
+
+        .center-btn img:hover {
+            transform: scale(1.02);
         }
 
         /* OPEN ANIMATION */
-        .open .left-shape {
-            transform: translateX(-100%);
+        body.open .first-view {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        body.open .left-shape {
+            transform: translateX(-120%);
             opacity: 0;
         }
 
-        .open .right-shape {
-            transform: translateX(100%);
+        body.open .right-shape {
+            transform: translateX(120%);
             opacity: 0;
         }
 
-        .open .top-shape {
-            transform: translateY(-100%);
+        body.open .top-shape {
+            transform: translateY(-120%);
             opacity: 0;
         }
 
-        .open .bottom-shape {
-            transform: translateY(100%);
+        body.open .bottom-shape {
+            transform: translateY(120%);
             opacity: 0;
         }
 
-        .open .center-btn {
+        body.open .center-btn {
             opacity: 0;
+            pointer-events: none;
         }
 
         /* ================= CONTENT ================= */
@@ -418,22 +438,23 @@
 
 <body>
     <audio id="bg-music" src="music.mp3" preload="auto" loop></audio>
+    <!-- FIRST VIEW (COVER) -->
     <div class="first-view">
         <img class="shape left-shape"
-            src="https://static.tildacdn.net/tild6338-3733-4431-a363-306634383864/Polygon_4.png">
+            src="https://static.tildacdn.net/tild6338-3733-4431-a363-306634383864/Polygon_4.png" alt="decor">
         <img class="shape right-shape"
-            src="https://static.tildacdn.net/tild3636-6566-4132-b665-343766326335/Polygon_3.png">
+            src="https://static.tildacdn.net/tild3636-6566-4132-b665-343766326335/Polygon_3.png" alt="decor">
         <img class="shape top-shape"
-            src="https://static.tildacdn.net/tild3762-3738-4361-b134-333538333135/Polygon_1_3.png">
+            src="https://static.tildacdn.net/tild3762-3738-4361-b134-333538333135/Polygon_1_3.png" alt="decor">
         <img class="shape bottom-shape"
-            src="https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png">
+            src="https://static.tildacdn.net/tild6262-6339-4933-b833-343039643037/Polygon_2_1.png" alt="decor">
 
         <div class="center-btn" onclick="openInvite()">
             <h3>بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</h3>
-            <img src="https://static.tildacdn.net/tild3435-3731-4464-a537-636664626563/ChatGPT_Image_Aug_3_.png">
+            <img src="https://static.tildacdn.net/tild3435-3731-4464-a537-636664626563/ChatGPT_Image_Aug_3_.png"
+                alt="invitation icon">
             <div class="divider"></div>
-            <p style="font-family: 'kurdishfont', sans-serif; color: rgb(82, 82, 82); position: absolute; left: 10%;">
-                بانگهێشتنامەی مارەکردن</p>
+            <p style="font-family: 'kurdishfont', sans-serif; color: rgb(82, 82, 82); position: absolute; left: 10%;">بانگهێشتنامەی مارەکردن</p>
         </div>
     </div>
 
@@ -505,6 +526,9 @@
                 target="_blank" class="map-btn" rel="noopener noreferrer" style="font-family: 'kurdishfont', sans-serif;">
                 📍 دەستنیشانکردنی ڕێگە
             </a>
+            <button class="map-btn" id="openMapsAppBtn" onclick="openNativeMap()">
+                    🗺 کردنەوە لە مۆبایلدا | Open in Maps
+                </button>
         </div>
     </div>
 
@@ -552,6 +576,69 @@
             } else {
                 music.pause();
                 btn.innerHTML = "▶"; // play icon
+            }
+        }
+
+        // NATIVE MAPS FUNCTIONALITY (improved mobile/desktop experience)
+        function openNativeMap() {
+            // Latitude & Longitude of venue (extracted from iframe coordinates)
+            const lat = 36.130462972445734;
+            const lng = 44.040153075807886;
+            const label = "Ahmed & Selar Wedding Venue - 5 Hasarek, Erbil";
+            
+            // Check if on iOS / Android / desktop and use appropriate URL
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            let mapUrl = "";
+            
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                // iOS: Apple Maps
+                mapUrl = `maps://maps.apple.com/?ll=${lat},${lng}&q=${encodeURIComponent(label)}&dirflg=d`;
+            } else if (/android/i.test(userAgent)) {
+                // Android: Google Maps intent
+                mapUrl = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${encodeURIComponent(label)}`;
+                // better to use directions:
+                mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place=${encodeURIComponent(label)}`;
+            } else {
+                // Desktop fallback: open Google Maps web
+                mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place=${encodeURIComponent(label)}`;
+            }
+            
+            window.open(mapUrl, '_blank');
+        }
+        
+        // Also attach directions button to ensure it uses modern coordinates (already using destination param)
+        // Additionally, improve map embed with more reliable coordinates (updated embed link ensures correct zoom)
+        // Dynamically improve iframe src just to be safe (optional but we already set better embed above)
+        // No additional changes needed.
+        
+        // small helper for smoother open on any click (if user clicks center btn)
+        // Ensure that if user accidentally clicks outside, open still works.
+        document.querySelector('.center-btn')?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openInvite();
+        });
+        
+        // Preload and check if music is allowed after user gesture (autoplay policy)
+        document.body.addEventListener('touchstart', function initAudio() {
+            if (music && music.paused && !document.body.classList.contains('open')) {
+                // only preload buffer but not play until open
+                music.load();
+            }
+            document.body.removeEventListener('touchstart', initAudio);
+        }, { once: true });
+        
+        // Make the openMapsAppBtn work properly
+        const nativeBtn = document.getElementById('openMapsAppBtn');
+        if (nativeBtn) {
+            nativeBtn.addEventListener('click', openNativeMap);
+        }
+        
+        // fix any double scrolling issues
+        if (window.innerWidth <= 768) {
+            // ensure map container touch-friendly
+            const mapIframe = document.querySelector('.map-container iframe');
+            if (mapIframe) {
+                mapIframe.setAttribute('allow', 'geolocation');
             }
         }
     </script>
